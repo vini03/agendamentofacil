@@ -1,0 +1,122 @@
+ /*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package controller;
+
+import Model.Usuario;
+import controller.helper.LoginHelper;
+import view.Login;
+
+/**
+ *
+ * @author pc geral
+ */
+public class LoginController {
+
+    private final Login view;
+    private LoginHelper helper;
+
+    public LoginController(Login view) {
+        this.view = view;
+        this.helper = new LoginHelper(view);
+    }
+    
+    public void entrarNoSistema(){
+        //Pegar um usuario da view
+       Usuario usuario = helper.obterModelo();
+        
+        
+        
+        
+        //Pesquisar usuario no Banco
+        UsuarioDAO usuarioDAO = new UsuarioDAO();
+        Usuario usuarioAutenticado = usuarioDAO.selectPorNomeESenha(usuario);
+        
+        //Se o usuario da view tiver o mesmo usuario e senha que o usuario vindo do banco direcionar para o menu principal
+        //Se não mostrar uma mensagem ao usuario ou senha invalidos
+        if(usuarioAutenticado != null){
+             MenuPrincipal menu = new MenuPrincipal();
+             menu.setVisible(true);
+             this.view.dispose();
+    }else{
+            view.exibeMensagem("Usuario ou senha invalidos");
+        }  
+
+    }
+    
+     public void fizTarefa(){
+        System.out.println("Busquei algo do banco de dados");
+        
+        this.view.exibeMensagem("Executei o fiz tarefa");
+    }
+    
+}
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+menucontroller
+
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package controller;
+
+import view.Agenda;
+
+
+/**
+ *
+ * @author pc geral
+ */
+public class MenuPrincipal {
+    
+    private final MenuPrincipal view;
+
+    public MenuPrincipal(MenuPrincipal view) {
+        this.view = view;
+    }
+
+    MenuPrincipal() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+ 
+    /**
+     *
+     */
+    public void navegarParaAgenda(){
+    
+    Agenda agenda = new Agenda();
+    agenda.setVisible(true);
+    }
+
+    void setVisible(boolean b) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+    
+}
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+usuario
+
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package controller;
+
+import Model.Usuario;
+
+/**
+ *
+ * @author pc geral
+ */
+class UsuarioDAO {
+
+    Usuario selectPorNomeESenha(Usuario usuario) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+}
